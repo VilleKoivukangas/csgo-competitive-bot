@@ -1,0 +1,24 @@
+{
+    "scripts": {
+        "build": "rimraf ./build && tsc",
+        "start": "npm run build && node build/index.js"
+    },
+    "dependencies": {
+        "@types/minimist": "^1.2.2",
+        "ip": "latest",
+        "minimist": "latest",
+        "named-regexp": "latest",
+        "nconf": "latest",
+        "public-ip": "latest",
+        "simple-rcon": "latest",
+        "steamid": "latest",
+        "tcp-ping": "latest"
+    },
+    "devDependencies": {
+        "@types/node": "^16.0.1",
+        "@types/tcp-ping": "^0.1.3",
+        "rimraf": "^3.0.2",
+        "tslint": "^5.12.1",
+        "typescript": "^3.9.9"
+    }
+}
