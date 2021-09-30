@@ -51,6 +51,9 @@ class GameController {
     }, {
         command: "commands",
         callback: this.commands.bind(this)
+    }, {
+        command: "pracc",
+        callback: this.commands.bind(this)
     }];
 
     /**
@@ -84,6 +87,12 @@ class GameController {
         }
 
         clearInterval(this.readyInterval);
+    }
+
+    public pracc(command: string[], userId: number, steamId: string, user_team: "CT" | "TERRORIST") {
+        this.messagingController?.sendRconMessage("rcon tv_stoprecord;");
+        this.serverState?.resetServerState();
+        this.loadWarmup();
     }
 
     /**
@@ -199,11 +208,32 @@ class GameController {
         this.messagingController?.sendRconMessage(configString, 1500);
     }
 
+    private loadPracc() {
+        if (this.serverState?.getGameIsStarted()) {
+            return;
+        }
+
+        this.loadGameConfig();
+        this.messagingController?.sendRconMessage('mp_restartgame 1', 1000);
+
+        this.loadPraccConfig();
+        this.messagingController?.sendRconMessage('mp_restartgame 1', 1000);
+    }
+
     /**
      * Loads game config
      */
     private loadGameConfig() {
         const filePath = path.resolve(__dirname, "../../src/cfg/game.cfg");
+        const configString = this.loadConfig(filePath);
+        this.messagingController?.sendRconMessage(configString);
+    }
+
+    /**
+     * Loads game config
+     */
+     private loadPraccConfig() {
+        const filePath = path.resolve(__dirname, "../../src/cfg/pracc.cfg");
         const configString = this.loadConfig(filePath);
         this.messagingController?.sendRconMessage(configString);
     }
