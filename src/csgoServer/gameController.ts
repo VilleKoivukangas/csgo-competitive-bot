@@ -89,10 +89,15 @@ class GameController {
         clearInterval(this.readyInterval);
     }
 
+    /**
+     * Handles !pracc command 
+     */
     public pracc(command: string[], userId: number, steamId: string, user_team: "CT" | "TERRORIST") {
-        this.messagingController?.sendRconMessage("rcon tv_stoprecord;");
-        this.serverState?.resetServerState();
-        this.loadWarmup();
+        if (this.serverState?.getGameIsStarted()) {
+            return;
+        }
+
+        this.loadPracc();
     }
 
     /**
@@ -257,7 +262,7 @@ class GameController {
 
         this.playerCommands.forEach((playerCommand) => {
             if (playerCommand.command === stringCommand) {
-                if (['map', 'knife', 'stay', 'swap', 'forceready', 'mr15', 'mr30', 'stop'].includes(stringCommand)) {
+                if (['map', 'knife', 'stay', 'swap', 'forceready', 'mr15', 'mr30', 'stop', 'pracc'].includes(stringCommand)) {
                     this.messagingController?.sendRconMessage(`say \x04Executing command ${stringCommand}`, 0);
                     setTimeout(() => {
                         playerCommand.callback([], userId, steamId, user_team, userName);
