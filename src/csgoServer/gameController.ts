@@ -102,8 +102,11 @@ class GameController {
         }
 
         if (config.admins.includes(steamId)) {
+            this.stopReadyInterval();
             this.messagingController?.sendRconMessage('mp_warmup_end');
-            this.restartGame("../../src/cfg/pracc.cfg");
+            const filePath = path.resolve(__dirname, "../../src/cfg/pracc.cfg")
+            const configString = this.loadConfig(filePath);
+            this.messagingController?.sendRconMessage(configString);
             this.messagingController?.sendRconMessage("say \x04Lets pracc bois.");
         }
     }
@@ -221,32 +224,11 @@ class GameController {
         this.messagingController?.sendRconMessage(configString, 1500);
     }
 
-    private loadPracc() {
-        if (this.serverState?.getGameIsStarted()) {
-            return;
-        }
-
-        this.loadGameConfig();
-        this.messagingController?.sendRconMessage('mp_restartgame 1', 1000);
-
-        this.loadPraccConfig();
-        this.messagingController?.sendRconMessage('mp_restartgame 1', 1000);
-    }
-
     /**
      * Loads game config
      */
     private loadGameConfig() {
         const filePath = path.resolve(__dirname, "../../src/cfg/game.cfg");
-        const configString = this.loadConfig(filePath);
-        this.messagingController?.sendRconMessage(configString);
-    }
-
-    /**
-     * Loads game config
-     */
-     private loadPraccConfig() {
-        const filePath = path.resolve(__dirname, "../../src/cfg/pracc.cfg");
         const configString = this.loadConfig(filePath);
         this.messagingController?.sendRconMessage(configString);
     }
