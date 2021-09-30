@@ -53,7 +53,7 @@ class GameController {
         callback: this.commands.bind(this)
     }, {
         command: "pracc",
-        callback: this.commands.bind(this)
+        callback: this.pracc.bind(this)
     }];
 
     /**
