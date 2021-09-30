@@ -93,11 +93,19 @@ class GameController {
      * Handles !pracc command 
      */
     public pracc(command: string[], userId: number, steamId: string, user_team: "CT" | "TERRORIST") {
+        if (this.serverState?.isKnifeRound()) {
+            return;
+        }
+
         if (this.serverState?.getGameIsStarted()) {
             return;
         }
 
-        this.loadPracc();
+        if (config.admins.includes(steamId)) {
+            this.messagingController?.sendRconMessage('mp_warmup_end');
+            this.restartGame("../../src/cfg/pracc.cfg");
+            this.messagingController?.sendRconMessage("say \x04Lets pracc bois.");
+        }
     }
 
     /**
