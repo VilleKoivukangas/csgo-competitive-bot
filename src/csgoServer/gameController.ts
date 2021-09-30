@@ -115,7 +115,7 @@ class GameController {
      * Respond to !commands command 
      */
     public commands(command: string[], userId: number, steamId: string, user_team: "CT" | "TERRORIST") {
-        this.messagingController?.sendRconMessage("say \x04Commands are: ready, pause, unpause, stay (knife victory) and swap (knife victory). Admin commands: knife, map, forceready, mr15, mr30 and stop.");
+        this.messagingController?.sendRconMessage("say \x04Commands are: ready, pause, unpause, stay (knife victory) and swap (knife victory). Admin commands: knife, map, forceready, mr15, mr30, stop and pracc.");
     }
 
     /**
