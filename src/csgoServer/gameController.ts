@@ -132,7 +132,7 @@ class GameController {
      */
     public stop(command: string[], userId: number, steamId: string, user_team: "CT" | "TERRORIST") {
         if (config.admins.includes(steamId)) {
-            this.messagingController?.sendRconMessage("rcon tv_stoprecord;");
+            this.messagingController?.sendRconMessage("tv_stoprecord;");
             this.serverState?.resetServerState();
             this.loadWarmup();
         }
