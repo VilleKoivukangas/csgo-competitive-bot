@@ -447,7 +447,7 @@ class GameController {
 
         [6000, 7000, 8000, 12000].forEach((milliseconds) => {
             setTimeout(() => {
-                this.messagingController?.sendRconMessage(milliseconds < 12000 ? 'mp_restartgame 1' : `say \x04GAME IS LIVE! GL HF!;rcon tv_stoprecord;rcon tv_record "/home/steam/demos/${(new Date()).getTime()}_demo.dem"`);
+                this.messagingController?.sendRconMessage(milliseconds < 12000 ? 'mp_restartgame 1' : `say \x04GAME IS LIVE! GL HF!;tv_stoprecord;tv_record "/home/steam/demos/${(new Date()).getTime()}_demo.dem"`);
             }, milliseconds);
         });
     }
